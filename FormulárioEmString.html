@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exercícios em HTML e JavaScript</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Exercícios em HTML e JavaScript</h1>
+
+    <!-- Exercício 1 -->
+    <h2>Exercício 1: Exibir String em Tabela</h2>
+    <form id="form1">
+        <label for="inputString">Digite uma String:</label>
+        <input type="text" id="inputString" name="inputString" required>
+        <button type="button" onclick="displayStringInTable()">Exibir</button>
+    </form>
+
+    <h3>Uma Única Linha</h3>
+    <table id="table1"></table>
+
+    <h3>Uma Coluna por Linha</h3>
+    <table id="table2"></table>
+
+    <!-- Exercício 2 -->
+    <h2>Exercício 2: Gerar String</h2>
+    <form id="form2">
+        <label for="inputChar">Digite um Caractere:</label>
+        <input type="text" id="inputChar" name="inputChar" maxlength="1" required>
+        <label for="inputNumber">Digite um Número:</label>
+        <input type="number" id="inputNumber" name="inputNumber" required>
+        <button type="button" onclick="generateAndDisplayString()">Exibir</button>
+    </form>
+
+    <h3>String Gerada</h3>
+    <div id="outputString"></div>
+
+    <!-- Exercício 3 -->
+    <h2>Exercício 3: Analisar String</h2>
+    <form id="form3">
+        <label for="inputStringAnalysis">Digite uma String:</label>
+        <input type="text" id="inputStringAnalysis" name="inputStringAnalysis" required>
+        <button type="button" onclick="analyzeString()">Analisar</button>
+    </form>
+
+    <h3>Resultado da Análise</h3>
+    <table id="analysisTable"></table>
+
+    <script>
+        // Função para Exercício 1
+        function displayStringInTable() {
+            var inputString = document.getElementById("inputString").value;
+            var table1 = document.getElementById("table1");
+            var table2 = document.getElementById("table2");
+
+            table1.innerHTML = "<tr><td>" + inputString.split("").join("</td><td>") + "</td></tr>";
+            table2.innerHTML = inputString.split("").map(char => "<tr><td>" + char + "</td></tr>").join("");
+        }
+
+        // Função para Exercício 2
+        function generateAndDisplayString() {
+            var inputChar = document.getElementById("inputChar").value;
+            var inputNumber = document.getElementById("inputNumber").value;
+            var outputString = document.getElementById("outputString");
+
+            var generatedString = inputChar.repeat(inputNumber);
+            outputString.textContent = generatedString;
+        }
+
+        // Função para Exercício 3
+        function analyzeString() {
+            var inputString = document.getElementById("inputStringAnalysis").value;
+            var analysisTable = document.getElementById("analysisTable");
+
+            var vowels = inputString.match(/[aeiouAEIOU]/g);
+            var consonants = inputString.match(/[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]/g);
+            var digits = inputString.match(/\d/g);
+            var otherCharacters = inputString.match(/[^aeiouAEIOUbcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ\d]/g);
+
+            var data = [
+                ["Vogais", vowels ? vowels.length : 0],
+                ["Consoantes", consonants ? consonants.length : 0],
+                ["Dígitos", digits ? digits.length : 0],
+                ["Outros", otherCharacters ? otherCharacters.length : 0]
+            ];
+
+            analysisTable.innerHTML = data.map(row => "<tr><td>" + row[0] + "</td><td>" + row[1] + "</td></tr>").join("");
+        }
+    </script>
+
+</body>
+
+</html>
